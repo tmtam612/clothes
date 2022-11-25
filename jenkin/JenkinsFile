@@ -14,14 +14,10 @@ pipeline {
         stage("Build") {
             steps {
                 dir("clothes") {
-                    sh "npm install"
-                }
-            }
-        }
-        stage("Run") {
-            steps {
-                dir("clothes") {
-                    sh "npm start"
+                    sh  """
+                        npm install
+                        npm run build
+                        """
                 }
             }
         }
