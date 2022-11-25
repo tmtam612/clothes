@@ -14,10 +14,7 @@ pipeline {
         stage("Build") {
             steps {
                 dir("clothes") {
-                    sh  """
-                        npm install
-                        ./script/deploy.sh
-                        """
+                    sh  "npm install"
                 }
             }
         }
