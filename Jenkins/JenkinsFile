@@ -30,7 +30,7 @@ pipeline {
                 dir("clothes") {
                     sh  """
                         npm run build
-                        npm start
+                        npm start & sleep 1
                         """ 
                         input message: 'Finished using the web site? (Click "Proceed" to continue)'
                 }
