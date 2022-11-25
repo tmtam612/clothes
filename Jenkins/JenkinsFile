@@ -16,16 +16,28 @@ pipeline {
                 dir("clothes") {
                     sh  """
                         npm install
-                        npm run build
+                        ./script/deploy.sh
                         """
                 }
             }
         }
-        stage("Test") {
+        stage('Test') {
             steps {
                 dir("clothes") {
-                    sh "npm run test"
+                    sh './jenkins/scripts/test.sh'
                 }
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
+            }
+        }
+        stage('Deliver') { 
+            steps {
+                sh './jenkins/scripts/deliver.sh' 
+                input message: 'Finished using the web site? (Click "Proceed" to continue)' 
+                // sh './jenkins/scripts/kill.sh' 
             }
         }
     }
