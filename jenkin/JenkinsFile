@@ -1,0 +1,34 @@
+pipeline {
+    agent {
+        docker {
+            image 'node:lts-bullseye-slim' 
+            args '-p 3000:3000' 
+        }
+    }
+    stages {
+        stage("Clean Up") {
+            steps {
+                deleteDir()
+            }
+        }
+        stage("Clone Repo") {
+            steps {
+                sh "git clone https://github.com/tmtam612/clothes.git"
+            }
+        }
+        stage("Build") {
+            steps {
+                dir("clothes") {
+                    sh "npm run install"
+                }
+            }
+        }
+        stage("Test") {
+            steps {
+                dir("clothes") {
+                    sh "npm run test"
+                }
+            }
+        }
+    }
+}
