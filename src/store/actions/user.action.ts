@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { put, call } from 'redux-saga/effects';
+import { put, call } from "redux-saga/effects";
 import { createUserWithEmailAndPassword } from "../../services/user.service";
 
 export const enum USER_ACTION_TYPE {
@@ -10,18 +10,14 @@ export const SIGNIN = "SIGN_IN";
 
 type User = {
     email: String;
+    name: String;
     password: String;
     confirmPassword: String;
 }
 
-type reponseUser = {
-    email: String;
-    password: String;
-}
-
 export function* singup(user: User) {
     try {
-        const response: reponseUser = yield call(createUserWithEmailAndPassword, user.email, user.password);
+        const response: Promise<User> = yield call(createUserWithEmailAndPassword, user.email, user.name, user.password);
         if (response) {
             yield put({type: USER_ACTION_TYPE.SIGN_UP_SUCCESS, payload: response});
         }

@@ -1,4 +1,4 @@
-import { AnyAction } from 'redux';
+import { AnyAction } from "redux";
 import { USER_ACTION_TYPE } from "../actions/user.action";
 
 export type UserState = {
