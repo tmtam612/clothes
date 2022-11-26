@@ -13,16 +13,12 @@ pipeline {
         }
         stage("Build") {
             steps {
-                dir("clothes") {
-                    sh  "npm install"
-                }
+                sh  "npm install"
             }
         }
         stage('Test') {
             steps {
-                dir("clothes") {
-                    sh 'npm test'
-                }
+                sh 'npm test'
             }
         }
         stage('Deliver') { 
