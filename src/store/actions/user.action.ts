@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { put, call } from "redux-saga/effects";
 import { createUserWithEmailAndPassword } from "../../services/user.service";
 
