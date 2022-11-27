@@ -1,4 +1,3 @@
-import { AnyAction } from "redux";
 import { USER_ACTION_TYPE } from "../actions/user.action";
 
 export type UserState = {
@@ -13,11 +12,21 @@ const INITIAL_STATE: UserState = {
   error: null,
 };
 
-export const UserReducer = (state = INITIAL_STATE, action: AnyAction) => {
+type ActionWithPayload = {
+    type: String,
+    payload?: any
+}
+
+export const UserReducer = (state = INITIAL_STATE, action: ActionWithPayload) => {
     switch (action.type) {
+        case USER_ACTION_TYPE.SIGN_UP_START: {
+            return {
+                ...state, payload: action.payload
+            };
+        }
         case USER_ACTION_TYPE.SIGN_UP_SUCCESS: {
             return {
-                ...state,
+                ...state, payload: action.payload
             };
         }
         case USER_ACTION_TYPE.SIGN_UP_FAILED: {

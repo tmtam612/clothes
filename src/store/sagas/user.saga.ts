@@ -1,8 +1,12 @@
-import { takeLatest, all, call } from "redux-saga/effects";
+import { takeLatest, all, fork } from 'redux-saga/effects';
 
-import { USER_ACTION_TYPE } from "../actions/user.action";
+import { USER_ACTION_TYPE, signup } from "../actions/user.action";
 export function* onSignUpSuccess() {
     yield takeLatest(USER_ACTION_TYPE.SIGN_UP_SUCCESS, alertSignUpSuccess);
+}
+
+export function* onSignUpStart() {
+    yield takeLatest(USER_ACTION_TYPE.SIGN_UP_START, signup);
 }
 
 const alertSignUpSuccess = () => {
@@ -10,5 +14,5 @@ const alertSignUpSuccess = () => {
 }
 
 export function* userSaga() {
-    yield call(onSignUpSuccess)
+    yield all([fork(onSignUpSuccess), fork(onSignUpStart)]);
 }
